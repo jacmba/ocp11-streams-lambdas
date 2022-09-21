@@ -38,21 +38,28 @@ public class FunctionalInterfacesExercise02 {
      * @return A Predicate that returns true for products that match the combination of search criteria.
      */
     public Predicate<Product> createSearchPredicate(SearchCriteria criteria) {
-        Predicate<Product> categoryIs = null; /* TODO: Implement a lambda expression that checks if a product's category is equal to criteria.category */;
+        Predicate<Product> categoryIs = p -> p.getCategory() == criteria.category;
         Predicate<Product> nameMatches = product -> product.getName().matches(criteria.namePattern);
-        Predicate<Product> minimumPriceIs = null; /* TODO: Implement a lambda expression that checks if a product's price is greater than criteria.minimumPrice */;
+        Predicate<Product> minimumPriceIs = p -> p.getPrice().compareTo(criteria.minimumPrice) >= 0;
         Predicate<Product> maximumPriceIs = product -> product.getPrice().compareTo(criteria.maximumPrice) <= 0;
 
-        Predicate<Product> predicate = null; /* TODO: Implement a lambda expression that takes a product and always returns true */;
+        Predicate<Product> predicate = p -> true;
 
         if (criteria.category != null) {
-            // TODO: Update 'predicate' to combine it with the 'categoryIs' predicate.
+            predicate = predicate.and(categoryIs);
         }
 
-        // TODO: Do the same for the other search criteria and corresponding predictates:
-        // - if criteria.namePattern is not null, include the 'nameMatches' predicate
-        // - if criteria.minimumPrice is not null, include the 'minimumPriceIs' predicate
-        // - if criteria.maximumPrice is not null, include the 'maximumPriceIs' predicate
+        if (criteria.namePattern != null) {
+            predicate = predicate.and(nameMatches);
+        }
+
+        if (criteria.minimumPrice != null) {
+            predicate = predicate.and(minimumPriceIs);
+        }
+
+        if (criteria.maximumPrice != null) {
+            predicate = predicate.and(maximumPriceIs);
+        }
 
         return predicate;
     }

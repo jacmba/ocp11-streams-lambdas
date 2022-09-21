@@ -9,6 +9,7 @@ import com.pluralsight.streamslambdas.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class FunctionalInterfacesExercise01 {
 
@@ -24,11 +25,14 @@ public class FunctionalInterfacesExercise01 {
      * @param f        Determines which products should be in the result.
      * @return A filtered list of products.
      */
-    public List<Product> filterProducts(List<Product> products, /* TODO: Replace 'Object' with a functional interface */ Object f) {
+    public List<Product> filterProducts(List<Product> products, Predicate<Product> f) {
         List<Product> result = new ArrayList<>();
 
-        // TODO: Implement this method. Loop through the list of products, call 'f' to determine if a product should be
-        // in the result list, and put it in the result list if appropriate.
+        for (Product product : products) {
+            if (f.test(product)) {
+                result.add(product);
+            }
+        }
 
         return result;
     }
