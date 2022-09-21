@@ -5,6 +5,7 @@ import com.pluralsight.streamslambdas.Product;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BasicStreamsExercise02 {
@@ -17,7 +18,6 @@ public class BasicStreamsExercise02 {
      * @return A List containing the names of the products in the given category.
      */
     public List<String> getProductNamesForCategory(List<Product> products, Category category) {
-        // TODO: Add three stream operation methods:
         //
         // 1) Find the products that are in the given category
         // 2) Transform each product to its name
@@ -27,7 +27,10 @@ public class BasicStreamsExercise02 {
 
 //        return products.stream()...;
 
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        return products.stream()
+            .filter(p -> p.getCategory().equals(category))
+            .map(p -> p.getName())
+            .collect(Collectors.toList());
     }
 
     /**
@@ -48,6 +51,9 @@ public class BasicStreamsExercise02 {
 
 //        return categories...;
 
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        return categories
+            .flatMap(c -> productsByCategory.get(c).stream())
+            .map(p -> p.getName())
+            .collect(Collectors.toList());
     }
 }

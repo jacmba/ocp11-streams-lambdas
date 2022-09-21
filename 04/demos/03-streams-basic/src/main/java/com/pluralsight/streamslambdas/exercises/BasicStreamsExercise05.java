@@ -1,5 +1,6 @@
 package com.pluralsight.streamslambdas.exercises;
 
+import com.pluralsight.streamslambdas.Category;
 import com.pluralsight.streamslambdas.Product;
 
 import java.math.BigDecimal;
@@ -16,13 +17,15 @@ public class BasicStreamsExercise05 {
      * {@code false} otherwise.
      */
     public boolean areAllOfficeProductsCheap(List<Product> products, BigDecimal priceLimit) {
-        // TODO: Look for products in the category OFFICE. Check if all of them cost less than the price limit.
+        // Look for products in the category OFFICE. Check if all of them cost less than the price limit.
         //
         // Hint: Use two stream operations; one the find the appropriate products,
         // and another one to check if they all cost less than the price limit.
 
 //        return products.stream()...;
 
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        return products.stream()
+            .filter(p -> p.getCategory().equals(Category.OFFICE))
+            .allMatch(p -> p.getPrice().compareTo(priceLimit) < 0);
     }
 }

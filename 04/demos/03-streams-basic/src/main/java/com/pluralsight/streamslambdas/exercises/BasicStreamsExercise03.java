@@ -17,12 +17,12 @@ public class BasicStreamsExercise03 {
      * or an empty Optional if there is no such product in the list.
      */
     public Optional<Product> findProductCheaperThan(List<Product> products, BigDecimal priceLimit) {
-        // TODO: Find any product in the list that is cheaper than the given price limit.
+        // Find any product in the list that is cheaper than the given price limit.
         //
         // Hint: You'll need to add two stream operations.
-
-//        return products.stream()...;
-
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        
+        return products.stream()
+            .filter(p -> p.getPrice().compareTo(priceLimit) < 0)
+            .findAny();
     }
 }

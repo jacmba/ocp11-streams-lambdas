@@ -1,8 +1,10 @@
 package com.pluralsight.streamslambdas.exercises;
 
+import com.pluralsight.streamslambdas.Category;
 import com.pluralsight.streamslambdas.Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BasicStreamsExercise01 {
 
@@ -13,8 +15,6 @@ public class BasicStreamsExercise01 {
      * @return A list of products that are utensils, sorted by name.
      */
     public List<Product> findUtensilsSortedByName(List<Product> products) {
-        // TODO: Add three stream operation methods:
-        //
         // 1) Find the products that are in the category UTENSILS
         // 2) Sort them by name
         // 3) Collect the result into a List
@@ -23,6 +23,9 @@ public class BasicStreamsExercise01 {
 
 //        return products.stream()...;
 
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        return products.stream()
+            .filter(p -> p.getCategory().equals(Category.UTENSILS))
+            .sorted((a, b) -> a.getName().compareTo(b.getName()))
+            .collect(Collectors.toList());
     }
 }

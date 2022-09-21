@@ -1,5 +1,6 @@
 package com.pluralsight.streamslambdas.exercises;
 
+import com.pluralsight.streamslambdas.Category;
 import com.pluralsight.streamslambdas.Product;
 
 import java.util.List;
@@ -15,13 +16,13 @@ public class BasicStreamsExercise04 {
      * or an empty Optional if there is no such product in the list.
      */
     public Optional<Product> findCheapestCleaning(List<Product> products) {
-        // TODO: Look for products that are in the category CLEANING and find the cheapest one.
+        // Look for products that are in the category CLEANING and find the cheapest one.
         //
         // Hint: Use a terminal operation to find the cheapest product.
         // Look at the API documentation of interface java.util.stream.Stream, find out which operation would be suitable.
 
-//        return products.stream()...;
-
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        return products.stream()
+            .filter(p -> p.getCategory().equals(Category.CLEANING))
+            .min((a, b) -> a.getPrice().compareTo(b.getPrice()));
     }
 }

@@ -3,6 +3,7 @@ package com.pluralsight.streamslambdas.exercises;
 import com.pluralsight.streamslambdas.Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BasicStreamsExercise06 {
 
@@ -13,13 +14,13 @@ public class BasicStreamsExercise06 {
      * @return A string containing the products as strings, separated by newlines ('\n').
      */
     public String formatProductList(List<Product> products) {
-        // TODO: Convert each of the products to a string (using Product.toString()) and collect the results in a string.
+        // Convert each of the products to a string (using Product.toString()) and collect the results in a string.
         // Separate the products strings by a newline character '\n'.
         //
         // Hint: Use the appropriate collector in the last step to convert the product strings into a single string.
-
-//        return products.stream()...;
-
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        
+        return products.stream()
+            .map(p -> p.toString())
+            .collect(Collectors.joining("\n"));
     }
 }
