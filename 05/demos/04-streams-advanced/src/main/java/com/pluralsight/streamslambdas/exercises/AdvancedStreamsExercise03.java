@@ -3,8 +3,10 @@ package com.pluralsight.streamslambdas.exercises;
 import com.pluralsight.streamslambdas.Product;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AdvancedStreamsExercise03 {
 
@@ -21,7 +23,7 @@ public class AdvancedStreamsExercise03 {
      * @return A map containing the cheap, medium and expensive products in separate lists.
      */
     public Map<PriceRange, List<Product>> groupProductsByPriceRange(List<Product> products, BigDecimal cheapLimit, BigDecimal expensiveLimit) {
-        // TODO: Group products by price range.
+        // Group products by price range.
         //
         // - A product is CHEAP if its price is less than cheapLimit.
         // - A product is EXPENSIVE if its price is more than expensiveLimit.
@@ -29,9 +31,14 @@ public class AdvancedStreamsExercise03 {
         //
         // Hint: Look carefully at the type of the keys of the map that this method should return. It tells you something about the classifier function.
         // What relation does this have with the classifier function that you use when using a grouping operation?
-
-//        return products.stream()...;
-
-        throw new UnsupportedOperationException("Not yet implemented"); // Remove this line
+        
+        return products.stream()
+            .collect(Collectors.groupingBy(
+                p -> p.getPrice().compareTo(cheapLimit) < 0 ?
+                    PriceRange.CHEAP :
+                    p.getPrice().compareTo(expensiveLimit) > 0 ?
+                    PriceRange.EXPENSIVE :
+                    PriceRange.MEDIUM
+            ));
     }
 }
